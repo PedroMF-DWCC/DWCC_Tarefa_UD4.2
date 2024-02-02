@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tarefa UD05 - Obxectos</title>
+    <link rel="stylesheet" href="obxectos.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Tarefa UD05 - Obxectos</h1>
+    </header>
+
+    <script>
+
+        let discos = [];
+        let filas = "";
+
+        class Disco{
+
+            #nombre = null;
+            #grupo = null;
+            #ano = null;
+            #tipo = null;
+            #prestado = null;
+
+            constructor(nombre, grupo, ano, tipo, prestado){
+
+                this.#nombre = nombre;
+                this.#grupo = grupo;
+                this.#ano = ano;
+                this.#tipo = tipo;
+                this.#prestado = prestado;
+            }
+
+            get nombre(){
+
+                return this.#nombre;
+            }
+
+            set nombre(nombre){
+
+                this.#nombre = nombre;
+            }
+
+            get grupo(){
+
+                return this.#grupo;
+            }
+
+            set grupo(grupo){
+
+                this.#grupo = grupo;
+            }
+
+            get ano(){
+
+                return this.#ano;
+            }
+
+            set ano(ano){
+
+                this.#ano = ano;
+            }
+
+            get tipo(){
+
+                return this.#tipo;
+            }
+
+            set tipo(tipo){
+
+                this.#tipo = tipo;
+            }
+
+            get prestado(){
+
+                return this.#prestado;
+            }
+
+            set prestado(prestado){
+
+                this.#prestado = prestado;
+            }
+
+            toString(){
+
+                const prestado = this.#prestado ? "Si" : "No";
+                return `Disco: ${this.#nombre} Grupo: ${this.#grupo} Año: ${this.#ano} ${this.#tipo} -- Prestado: ${prestado}`;
+            }
+        }
+
+        function guardarDisco(){
+
+            const nombre = document.querySelector('#nombre').value;
+            const grupo = document.querySelector('#grupo').value;
+            const ano = document.querySelector('#ano').value;
+            const tipo = document.querySelector('#tipo').value;
+            const prestado = document.querySelector('#prestado').value === 'true';
+
+            const disco = new Disco(nombre, grupo, ano, tipo, prestado);
+            discos.push(disco);
+
+            const tbody = document.querySelector('tbody');      
+            
+            filas = "";
+            
+            discos.forEach(el => {
+
+                const prestadoSN = el.prestado ? "Si" : "No";
+                filas += `
+                <tr>
+                    <td>${el.nombre}</td>
+                    <td>${el.grupo}</td>
+                    <td>${el.ano}</td>
+                    <td>${el.tipo}</td>
+                    <td>${prestadoSN}</td>
+                </tr>
+                `;
+            });
+            tbody.innerHTML = filas;
+        }
+
+    </script>
+
+    <section id="section_form">
+        <form id="formularioDisco">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" required>
+
+            <label for="grupo">Grupo:</label>
+            <input type="text" id="grupo" required>
+
+            <label for="ano">Año:</label>
+            <input type="number" id="ano" required>
+
+            <label for="tipo">Tipo:</label>
+            <input type="text" id="tipo" required>
+
+            <label for="prestado">Prestado:</label>
+            <select id="prestado" required>
+                <option value="true">Sí</option>
+                <option value="false">No</option>
+            </select>
+
+            <button type="button" onclick="guardarDisco()">Guardar Disco</button>
+        </form>
+    </section>
+
+    <section id="section_table">
+        <h3>Discos guardados:</h3>
+        <br/>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Disco</th>
+                    <th>Grupo</th>
+                    <th>Ano</th>
+                    <th>Xénero</th>
+                    <th>Prestado?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Se completa dinámicamente -->
+            </tbody>
+        </table>
+
+
+    </section>
+
+
+
+</body>
+
+</html>
